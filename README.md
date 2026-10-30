@@ -95,15 +95,6 @@ The notebook was written for Google Colab (it reads from Google Drive). To run i
 3. Run all cells in order.
 4. Call `recommend(<index>)` with any row position.
 
-## Known limitations and suggested improvements
-
-- **Memory use:** the full N x N cosine similarity matrix grows quadratically with the number of reviews. For large datasets, compute similarity per query (for example `cosine_similarity(tfidf_matrix[i], tfidf_matrix)`) or use nearest-neighbour search.
-- **Country fill bug:** `df_clean['Country'].fillna(df_clean['Country'].mode)` is missing parentheses, so it fills with the method object rather than the most common country. It should be `.mode()[0]`.
-- **Index mismatch:** rows are dropped after loading, so `recommend()` uses `iloc` positions, not the original DataFrame index. Call `df_clean.reset_index(drop=True)` after cleaning to keep the two consistent.
-- **Train/validation split:** the notebook has a "Split the data into train and validation sets" heading, but no split is performed, and there is no evaluation of recommendation quality.
-- **Duplicate check:** `Review Date` and `Date of Experience` are compared for equality, but this has no effect on later steps.
-- **Recommending reviews, not products:** the system returns similar reviews. It does not recommend products or users, since the dataset contains no product identifier.
-- **Possible upgrades:** sentence embeddings instead of TF-IDF, a larger `max_features` or n-grams, filtering by rating, and adding evaluation metrics.
 
 ## Project structure
 
